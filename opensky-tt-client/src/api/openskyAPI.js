@@ -1,8 +1,6 @@
 import axios from "axios";
 
 export function getDepartingFlights(airport, begin, end) {
-	console.log(begin);
-	console.log(end);
 	return axios
 			.get(`https://opensky-network.org/api/flights/departure`, {params:{'airport': airport, 'begin': begin, 'end': end}} );
 }

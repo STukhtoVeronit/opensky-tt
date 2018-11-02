@@ -1,13 +1,21 @@
 import React, {Component} from 'react';
 import Modal from "react-responsive-modal";
+import Spinner from "../../components/common/spinner/Spinner";
 
 class ModalAirportInfo extends Component {
 	render() {
+
 		return (
 				<Modal open={this.props.open} onClose={this.props.onClose} center>
 
 					<div className="w-75">
-						<h2>Departing Flights in</h2> <input type="number" value={this.props.departingTime} min={0} max={120} onChange={value => console.log(value)}/>
+						<h2>Departing Flights in</h2>
+						<select onChange={(value) => this.props.onChangeDepartingTime(value)}>
+							<option defaultValue="60">60</option>
+							<option value="20">20</option>
+							<option value="40">40</option>
+							<option value="180">180</option>
+						</select>
 						<table className="table">
 							<thead>
 							<tr>
@@ -18,11 +26,10 @@ class ModalAirportInfo extends Component {
 								<th scope="col">VertDistance</th>
 							</tr>
 							</thead>
-
 							<tbody>
 							{
 								this.props.departingFlights.map((flight, index) => (
-										<tr className='table-row' key={index} >
+										<tr className='table-row' key={index}>
 											<th scope="row">{index + 1}</th>
 											<td>{flight.callsign}</td>
 											<td>{flight.firstSeen}</td>
@@ -32,10 +39,16 @@ class ModalAirportInfo extends Component {
 								))
 							}
 							</tbody>
-
 						</table>
+						{(this.props.departingLoading ? <Spinner/> : null)}
 
-						<h2>Arrival Flights in</h2> <input type="number" value={this.props.arrivalTime} min={0} max={120} onChange={value => this.setState({'arrivalTime': value})}/>
+						<h2>Arrival Flights in</h2>
+						<select onChange={(value) => this.props.onChangeArrivalTime(value)}>
+							<option defaultValue="60">60</option>
+							<option value="20">20</option>
+							<option value="40">40</option>
+							<option value="180">180</option>
+						</select>
 						<table className="table">
 							<thead>
 							<tr>
@@ -46,11 +59,10 @@ class ModalAirportInfo extends Component {
 								<th scope="col">VertDistance</th>
 							</tr>
 							</thead>
-
 							<tbody>
 							{
 								this.props.arrivalFlights.map((flight, index) => (
-										<tr className='table-row' key={index} >
+										<tr className='table-row' key={index}>
 											<th scope="row">{index + 1}</th>
 											<td>{flight.callsign}</td>
 											<td>{flight.firstSeen}</td>
@@ -60,8 +72,8 @@ class ModalAirportInfo extends Component {
 								))
 							}
 							</tbody>
-
 						</table>
+						{(this.props.arrivalLoading ? <Spinner/> : null)}
 					</div>
 
 				</Modal>

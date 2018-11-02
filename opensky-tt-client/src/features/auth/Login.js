@@ -18,10 +18,6 @@ class Login extends Component {
 
 	onSubmit = (e) => {
 		e.preventDefault();
-		const userData = {
-			username: this.state.username,
-			password: this.state.password,
-		};
 
 		if (this.state.username === "demo" && this.state.password === "demo") {
 			localStorage.setItem('openSkyUser', this.state.username);
@@ -32,7 +28,6 @@ class Login extends Component {
 				this.setState({errors: {}})
 		}
 
-		history.push('/home');
 	};
 
 	render() {
@@ -44,7 +39,7 @@ class Login extends Component {
 						<div className="login">
 							<div className="container">
 								<div className="row">
-									<div className="col-md-8 m-auto">
+									<div className="col-md-12 m-auto">
 										<h1 className="display-4 text-center">Log In</h1>
 										<form onSubmit={this.onSubmit}>
 

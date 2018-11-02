@@ -10,15 +10,16 @@ class Home extends Component {
 		this.state = {
 			arrivalFlights: [],
 			arrivalErrors: '',
-			arrivalTime: 300,
+			arrivalTime: 60,
 			arrivalLoading: false,
 
 			departingFlights: [],
 			departingErrors: '',
-			departingTime: 300,
+			departingTime: 60,
 			departingLoading: false,
 
 			showModal: false,
+			ICAO: null,
 			airports: [
 				{
 					'Name': 'Hartsfield–Jackson Atlanta International Airport',
@@ -84,6 +85,21 @@ class Home extends Component {
 		}
 	}
 
+	onArrivalTimeChange = (value) => {
+		this.setState({'arrivalTime': value});
+		this.showModal();
+	};
+
+	onDepartingTimeChange = (value) => {
+		this.setState({'departingTime': value});
+		this.showModal();
+	};
+
+	onAirportClick = (ICAO) => {
+		this.setState({'ICAO': ICAO});
+		this.showModal(ICAO);
+	};
+
 	onOpenModal = () => {
 		this.setState({showModal: true});
 	};
@@ -92,18 +108,19 @@ class Home extends Component {
 		this.setState({showModal: false});
 	};
 
-	showModal = (ICAO) => {
-		this.setState({'arrivalLoading': true, 'derivedLoading': true});
+	showModal = (ICAO = this.state.ICAO) => {
+		this.setState({'arrivalLoading': true, 'departingLoading': true});
+		this.setState({'departingFlights': [], 'arrivalFlights': []});
 
 		getDepartingFlights(ICAO, getTimeInSeconds(-this.state.departingTime), getTimeInSeconds())
 				.then(response => this.setState({'departingFlights': response.data}))
 				.catch(err => this.setState({'departingErrors': err.data}))
-				.finally(() => this.setState({'derivedLoading': false}));
+				.finally(() => this.setState({'departingLoading': false}));
 
 		getArrivalFlights(ICAO, getTimeInSeconds(-this.state.departingTime), getTimeInSeconds())
 				.then(response => this.setState({'arrivalFlights': response.data}))
 				.catch(err => this.setState({'arrivalErrors': err.data}))
-				.finally(() => this.setState({'derivedLoading': false}));
+				.finally(() => this.setState({'arrivalLoading': false}));
 
 		this.onOpenModal();
 	};
@@ -130,7 +147,7 @@ class Home extends Component {
 									</thead>
 									<tbody>
 									{this.state.airports.map((airport, index) => (
-											<tr className='table-row' key={index} onClick={() => this.showModal(airport.ICAO)}>
+											<tr className='table-row' key={index} onClick={() => this.onAirportClick(airport.ICAO)}>
 												<th scope="row">{index + 1}</th>
 												<td>{airport.Name}</td>
 												<td>{airport.Location}</td>
@@ -146,11 +163,14 @@ class Home extends Component {
 										onClose={this.onCloseModal}
 										departingTime={this.state.departingTime}
 										arrivalTime={this.state.arrivalTime}
+										onChangeArrivalTime={(value) => this.onArrivalTimeChange(value) }
+										onChangeDepartingTime={(value) => this.onDepartingTimeChange(value)}
+										arrivalLoading={this.state.arrivalLoading}
+										departingLoading={this.state.departingLoading}
 										arrivalFlights={this.state.arrivalFlights}
 										arrivalErrors={this.state.arrivalErrors}
 										departingFlights={this.state.departingFlights}
 										departingErrors={this.state.departingErrors}/>
-
 							</div>
 						</div>
 					</div>
