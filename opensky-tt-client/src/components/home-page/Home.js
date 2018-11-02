@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import axios from "axios";
-import getTime from ""
+
 class Home extends Component {
 	constructor(props){
 		super(props);
