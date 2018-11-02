@@ -3,9 +3,9 @@ import './App.css';
 import {Route, Switch, withRouter} from 'react-router-dom';
 
 
-import Login from './components/auth/Login'
-import Home from './components/home-page/Home'
-import NotFound from "./components/not-found/NotFound";
+import Login from './features/auth/Login'
+import Home from './features/home-page/Home'
+import NotFound from "./features/not-found/NotFound";
 import PrivateRoute from "./components/common/PrivateRoute";
 
 class App extends Component {

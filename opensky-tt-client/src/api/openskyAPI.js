@@ -1,18 +1,13 @@
 import axios from "axios";
 
-export function getDepartingFlights(data = {'airport': 'RJTT', 'begin': 1541137339, 'end': 1541148069}) {
-	return new Promise((resolve, reject) => {
-		axios
-			.get(`https://opensky-network.org/api/flights/departure?airport=RJTT&begin=1541137339&end=1541148069`)
-			.then(res => console.dir(res))
-			.catch(err => console.dir(err))
-	});
+export function getDepartingFlights(airport, begin, end) {
+	console.log(begin);
+	console.log(end);
+	return axios
+			.get(`https://opensky-network.org/api/flights/departure`, {params:{'airport': airport, 'begin': begin, 'end': end}} );
 }
-export function getArivialFlights(params = {'airport': 'RJTT', 'begin': , 'end': 1541148069}) {
-	return new Promise((resolve, reject) => {
-		axios
-			.get(`https://opensky-network.org/api/flights/arrival`, {params})
-			.then(res => console.dir(res))
-			.catch(err => console.dir(err))
-	});
+
+export function getArrivalFlights(airport, begin, end) {
+	return axios
+			.get(`https://opensky-network.org/api/flights/arrival`, {params:{'airport': airport, 'begin': begin, 'end': end}} );
 }

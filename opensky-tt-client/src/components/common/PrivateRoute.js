@@ -5,7 +5,7 @@ const PrivateRoute = ({component: Component, auth, ...rest}) => (
 		<Route
 				{...rest}
 				render={props =>
-						true === true ? (
+						(localStorage.getItem('openSkyUser') === 'demo' && localStorage.getItem('openSkyPassword') === 'demo') ? (
 								<Component {...props}/>
 						) : (
 								<Redirect to="/login"/>
