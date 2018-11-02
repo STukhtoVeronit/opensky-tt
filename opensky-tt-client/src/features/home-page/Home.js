@@ -157,7 +157,6 @@ class Home extends Component {
 									))}
 									</tbody>
 								</table>
-
 								<ModalAirportInfo
 										open={this.state.showModal}
 										onClose={this.onCloseModal}
