@@ -85,13 +85,14 @@ class Home extends Component {
 		}
 	}
 
+
 	onArrivalTimeChange = (value) => {
-		this.setState({'arrivalTime': value});
+		this.setState({'arrivalTime': value.target.value});
 		this.showModal();
 	};
 
 	onDepartingTimeChange = (value) => {
-		this.setState({'departingTime': value});
+		this.setState({'departingTime': value.target.value});
 		this.showModal();
 	};
 
@@ -117,7 +118,7 @@ class Home extends Component {
 				.catch(err => this.setState({'departingErrors': err.data}))
 				.finally(() => this.setState({'departingLoading': false}));
 
-		getArrivalFlights(ICAO, getTimeInSeconds(-this.state.departingTime), getTimeInSeconds())
+		getArrivalFlights(ICAO, getTimeInSeconds(-this.state.arrivalTime), getTimeInSeconds())
 				.then(response => this.setState({'arrivalFlights': response.data}))
 				.catch(err => this.setState({'arrivalErrors': err.data}))
 				.finally(() => this.setState({'arrivalLoading': false}));
@@ -162,7 +163,7 @@ class Home extends Component {
 										onClose={this.onCloseModal}
 										departingTime={this.state.departingTime}
 										arrivalTime={this.state.arrivalTime}
-										onChangeArrivalTime={(value) => this.onArrivalTimeChange(value) }
+										onChangeArrivalTime={(value) => this.onArrivalTimeChange(value)}
 										onChangeDepartingTime={(value) => this.onDepartingTimeChange(value)}
 										arrivalLoading={this.state.arrivalLoading}
 										departingLoading={this.state.departingLoading}

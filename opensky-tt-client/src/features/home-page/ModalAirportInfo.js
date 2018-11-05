@@ -10,10 +10,10 @@ class ModalAirportInfo extends Component {
 
 					<div className="w-75">
 						<h2>Departing Flights in</h2>
-						<select onChange={(value) => this.props.onChangeDepartingTime(value)}>
-							<option defaultValue="60">60</option>
+						<select value={this.props.departingTime} onChange={(value) => this.props.onChangeDepartingTime(value)}>
 							<option value="20">20</option>
 							<option value="40">40</option>
+							<option value="60">60</option>
 							<option value="180">180</option>
 						</select>
 						<table className="table">
@@ -32,7 +32,7 @@ class ModalAirportInfo extends Component {
 										<tr className='table-row' key={index}>
 											<th scope="row">{index + 1}</th>
 											<td>{flight.callsign}</td>
-											<td>{flight.firstSeen}</td>
+											<td>{new Date(flight.firstSeen*1000).toLocaleString()}</td>
 											<td>{flight.estDepartureAirportHorizDistance}</td>
 											<td>{flight.estDepartureAirportVertDistance}</td>
 										</tr>
@@ -43,10 +43,10 @@ class ModalAirportInfo extends Component {
 						{(this.props.departingLoading ? <Spinner/> : null)}
 
 						<h2>Arrival Flights in</h2>
-						<select onChange={(value) => this.props.onChangeArrivalTime(value)}>
-							<option defaultValue="60">60</option>
+						<select value={this.props.arrivalTime} onChange={(value) => this.props.onChangeArrivalTime(value)}>
 							<option value="20">20</option>
 							<option value="40">40</option>
+							<option value="60">60</option>
 							<option value="180">180</option>
 						</select>
 						<table className="table">

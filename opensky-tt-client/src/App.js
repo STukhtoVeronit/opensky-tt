@@ -12,19 +12,19 @@ class App extends Component {
 
 	render() {
 		return (
-			<div className="App">
-				<Switch>
+				<div className="App">
+					<Switch>
 
-					<Route exact path="/" component={Login}/>
+						<Route exact path="/" component={Login}/>
 
-					<PrivateRoute
-						exact path="/home"
-						component={Home}/>
+						<PrivateRoute
+								exact path="/home"
+								component={Home}/>
 
-					<Route component={NotFound}/>
+						<Route component={NotFound}/>
 
-				</Switch>
-			</div>
+					</Switch>
+				</div>
 		);
 	}
 }
